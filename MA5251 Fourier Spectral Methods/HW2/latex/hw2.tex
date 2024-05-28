@@ -1,0 +1,342 @@
+\documentclass[a4paper,8pt]{article}
+\pagestyle{plain}
+
+\input{base}
+
+\title{MA5251 Homework 2}
+\author{Li Xuanguang, A0154735B}
+
+\begin{document}
+\maketitle
+
+% Q1
+\begin{enumerate}[label=Q\arabic	*.]
+\setlength{\itemsep}{0pt}
+\setcounter{enumi}{0}
+\item
+From lecture notes, we have the three-term recurrence relation
+\begin{equation}
+(n+1)L_{n+1}(x) = (2n+1)x L_n(x) - nL_{n-1}(x) \nonumber
+\end{equation}
+Differentiating once and by chain rule, we get
+\begin{equation}
+(n+1)L^{(1)}_{n+1}(x) = (2n+1) L_n(x) + (2n+1)x L^{(1)}_n(x) - nL^{(1)}_{n-1} (x) \nonumber
+\end{equation}
+Differentiating again, we get
+\begin{align}
+(n+1)L^{(2)}_{n+1}(x) &= (2n+1)L^{(1)}_n(x) + (2n+1)L^{(1)}_n(x) + (2n+1)x L^{(2)}_n(x) - nL^{(2)}_{n-1} (x) \nonumber \\
+&= 2(2n+1)L^{(1)}_n(x) + (2n+1)x L^{(2)}_n(x) - nL^{(2)}_{n-1} (x) \nonumber
+\end{align}
+Hence, by the $m$-th differentiation, we get
+\begin{equation}
+(n+1)L^{(m)}_{n+1}(x) = m(2n+1)L^{(m-1)}_n(x) + (2n+1)x L^{(m)}_n(x) - nL^{(m)}_{n-1} (x) \nonumber
+\end{equation}
+From the second Proposition in Properties of Derivatives, Lecture 14 Slide 10, we can see that
+\begin{equation}
+L^{(1)}_{n+1}(x) - L^{(1)}_{n-1}(x) = (2n+1)L_{n}(x) \nonumber
+\end{equation}
+Differentiating $m-1$ times, this implies
+\begin{equation}
+L^{(m)}_{n+1}(x) - L^{(m)}_{n-1}(x) = (2n+1)L^{(m-1)}_{n}(x) \nonumber
+\end{equation}
+Substituting into the differentiated three-term recurrence relation, we get
+\begin{align}
+(n+1)L^{(m)}_{n+1}(x) = m[L^{(m)}_{n+1}(x) - L^{(m)}_{n-1}(x)] + (2n+1)x L^{(m)}_n(x) - nL^{(m)}_{n-1} (x)  \nonumber
+\end{align}
+Thus we get the three-term recurrence relation
+\begin{align}
+(n-m+1)L^{(m)}_{n+1}(x) &= (2n+1)x L^{(m)}_n(x) - (n+m)L^{(m)}_{n-1} (x)  \nonumber \\
+L^{(m)}_{n+1}(x) &= \frac{2n+1}{n-m+1}x L^{(m)}_n(x) - \frac{n+m}{n-m+1}L^{(m)}_{n-1} (x) \nonumber
+\end{align}
+where $\alpha^{(m)}_n = \frac{2n+1}{n-m+1}$ and $\beta^{(m)}_n = \frac{n+m}{n-m+1}$ \\
+For the initial condition, if $n < m$, then $L^{(m)}_n = 0$.\\
+The first term is where $n=m$, then $L^{(m)}_m = (2m)!a_m = \frac{(2m)!}{2^m m!}$.\\
+The next term is where $n = m+1$, then $L^{(m)}_{m+1} = a_{m+1}[(2m+2)!x - (2m+1)!(m+1)] = \frac{(2m+1)!}{2^m m!}x - \frac{(2m+1)!}{2^{m+1} m!}$.
+\end{enumerate}
+
+\newpage
+
+% Q2
+\begin{enumerate}[label=Q\arabic	*.]
+\setlength{\itemsep}{0pt}
+\setcounter{enumi}{1}
+\item We prove both relations with induction.\\
+From Lecture 14 Chebyshev Polynomials , we have the recurrence relation $T_{n+1}(x) = 2x T_n(x) - T_{n-1}(x)$.\\
+Let $\theta = \arccos(x)$. Then $T_n(x) = \cos (n \theta)$, and this implies $\cos((n+1) \theta) = 2 \cos (\theta) \cos (n \theta) -  \cos ((n-1) \theta)$\\
+\newline
+Taking the derivative of $T_{n+1} (x)$ and $T_{n-1} (x)$,
+\begin{align}
+T^{(1)}_{n+1} (x) = - \theta^{(1)} (n+1) \sin ((n+1)\theta) \nonumber \\
+T^{(1)}_{n-1} (x) = - \theta^{(1)} (n-1) \sin ((n-1)\theta) \nonumber
+\end{align}
+Hence we can prove the relation
+\begin{align}
+\frac{1}{n+1} T^{(1)}_{n+1} (x) - \frac{1}{n-1} T^{(1)}_{n-1} (x) &= - \theta^{(1)}[\sin((n+1)\theta) - \sin((n-1)\theta)] \nonumber \\
+&= -\theta^{(1)} [2 \cos (n\theta)\sin(\theta)] \nonumber \\
+&= \frac{\sin \theta}{\sqrt{1-(\cos\theta)^2}} 2 \cos (n \theta) \nonumber \\
+&= 2 T_n(x) \nonumber
+\end{align}
+\newline
+From Lecture 14 Chebyshev Polynomials, we have the inner product
+\begin{equation}
+(T_n(x), T_m(x)) = \int_{-1}^{1} T_m(x) T_n(x) \omega(x) \ dx = \frac{\pi}{2} c_n \delta_{mn} \nonumber
+\end{equation}
+where $c_n = 1 + \delta_{n0}$. Hence, we can derive the following results:
+\begin{align}
+(T_n(x), T_0(x)) &= \frac{\pi}{2} (1 + \delta_{n0}) \delta_{n0}, \ \ n \geq 1 \nonumber \\
+(T_0(x), T_0(x)) &= \frac{\pi}{2} (1 + \delta_{00}) \delta_{00}, \ \ n \geq 1 \nonumber
+\end{align}
+\newline
+For the first differential relation, we prove by induction.
+\begin{align*}
+T^{(1)}_2 = 2 \times 2 T_1 = 2 \cdot 2 \sum\limits^{1}_{\substack{k = 0 \\ k + n \ \text{odd}}} \frac{1}{c_k} T_k(x) \nonumber
+\end{align*}
+Assume $n = N \geq 2$. Then
+\begin{align}
+T^{(1)}_{N} (x) = 2N \sum\limits^{N-1}_{\substack{k = 0 \\ k + n \ \text{odd}}} \frac{1}{c_k} T_k(x) \nonumber
+\end{align} 
+For $n = N+1$, we use the result from the relation proved earlier.
+\begin{align}
+\frac{1}{N+1} T^{(1)}_{N+1} (x) &= 2 T_N(x) + \frac{1}{N-1} T^{(1)}_{N-1} (x) \nonumber \\
+&= 2 T_N(x) + 2 \sum\limits^{N-1}_{\substack{k = 0 \\ k + N-1 \ \text{odd}}} \frac{1}{c_k} T_k(x) \nonumber \\
+&= 2 T_N(x) + 2 \sum\limits^{N-1}_{\substack{k = 0 \\ k + N+1 \ \text{odd}}} \frac{1}{c_k} T_k(x) \ \ \text{\ \ , $k+N-1$ odd $\Rightarrow$ $k+N+1$ odd} \nonumber \\
+&= 2 \sum\limits^{N}_{\substack{k = 0 \\ k + N+1 \ \text{odd}}} \frac{1}{c_k} T_k(x) \nonumber
+\end{align}
+Hence by induction,
+\begin{equation}
+T^{(1)}_{n} (x) = 2 n \sum\limits^{N-1}_{\substack{k = 0 \\ k + n \ \text{odd}}} \frac{1}{1 + \delta_{k0}} T_k(x) \nonumber
+\end{equation}
+\newpage
+For the second differential relation, we prove by induction.
+\begin{align*}
+T^{(2)}_2 = 4 = \frac{1}{2} \cdot 2 \cdot (4-0) T_0 = \sum\limits^{0}_{\substack{k = 0 \\ k + n \ \text{even}}} \frac{n}{c_k} (n^2 - k^2) T_k(x) \nonumber
+\end{align*}
+Assume $n = N \geq 2$. Then
+\begin{align}
+T^{(2)}_{N} (x) = \sum\limits^{N-2}_{\substack{k = 0 \\ k + n \ \text{even}}} \frac{n}{c_k} (n^2 - k^2) T_k(x) \nonumber
+\end{align}
+For $n = N+1$, we use the result from the relation proved earlier.
+\begin{align}
+\frac{1}{N+1} T^{(2)}_{N+1} (x) &= \left(2 T_N(x) + \frac{1}{N-1} T^{(1)}_{N-1} (x)\right)^{(1)} \nonumber \\
+&= 2 T^{(1)}_N(x) + \frac{1}{N-1} T^{(2)}_{N-1}(x) \nonumber \\
+&= 4 N \sum\limits^{N-1}_{\substack{k = 0 \\ k + N \ \text{odd}}} \frac{1}{1 + \delta_{k0}} T_k(x) + \frac{1}{N-1} \sum\limits^{N-3}_{\substack{k = 0 \\ k + N - 1 \ \text{even}}} \frac{N-1}{c_k} ((N-1)^2 - k^2) T_k(x) \nonumber \\
+&= \frac{1}{c_{N-1}} T_{N-1}(x) \cdot 4N + \sum\limits^{N-3}_{\substack{k = 0 \\ k + N - 3 \ \text{even}}} \frac{1}{c_k} ((N-1)^2 - k^2 + 4N) T_k(x) \nonumber \\
+&= \frac{1}{c_{N-1}} T_{N-1}(x) \cdot [(N+1)^2 - (N-1)^2] + \sum\limits^{N-1}_{\substack{k = 0 \\ k + N + 1 \ \text{even}}} \frac{1}{c_k} ((N+1)^2 - k^2) T_k(x) \nonumber \\
+&= \sum\limits^{N-1}_{\substack{k = 0 \\ k + N + 1 \ \text{even}}} \frac{1}{c_k} ((N+1)^2 - k^2) T_k(x) \nonumber
+\end{align}
+Hence by induction,
+\begin{equation}
+T^{(2)}_{n} (x) = \sum\limits^{n-2}_{\substack{k = 0 \\ k + n \ \text{even}}} \frac{1}{1 + \delta_{k0}} n(n^2 - k^2) T_k(x) \nonumber
+\end{equation}
+\end{enumerate}
+
+\newpage
+\begin{enumerate}[label=Q\arabic	*.]
+\setlength{\itemsep}{0pt}
+\setcounter{enumi}{2}
+\item 
+\begin{enumerate}[label=(\alph*)]
+\setlength{\itemsep}{0pt}
+\item Define the Sturm-Liouville operator
+\begin{equation}
+\Lagr f(x) = - \sqrt{1 - x^2} \frac{d}{dx} [\sqrt{1-x^2} f'(x)] \nonumber
+\end{equation}
+According to Sturm-Liouville equation, we have
+\begin{equation}
+\Lagr T_n(x) = n^2 T_n(x) \nonumber
+\end{equation}
+We also have
+\begin{equation}
+(\Lagr f, g) = (f, \Lagr g) \nonumber
+\end{equation}
+By completeness of basis $\{T_n(x)\}_{n \in \N}$ in $L^2_{\omega} (-1, 1)$ space, we can expand any function $f \in L^2_{\omega} (-1, 1)$:
+\begin{equation}
+f(x) = \sum\limits_{n = 0}^{+ \infty} \hat{f}_n T_n(x) \nonumber
+\end{equation}
+Note
+\begin{align}
+\norm{f - \pi_N f}^2_{0, \omega} &= \norm{\sum\limits_{n = N+1}^{+ \infty} \hat{f}_n T_n (x)}^2_{0,\omega} \nonumber \\
+&= \sum\limits_{n = N+1}^{+ \infty} \frac{\pi}{2} \abs{\hat{f}_n}^2 \ \ \ \text{(as $\norm{T_n(x)}^2_{0, \omega} = \frac{\pi}{2}(1+\delta_{k0})$)}\nonumber \\
+&= \sum\limits_{n = N+1}^{+ \infty} \frac{2}{\pi} \abs{\int_{-1}^1 f(x) T_n(x) \omega(x) \ dx}^2 \nonumber \\
+&= \frac{2}{\pi} \sum\limits_{n = N+1}^{+ \infty} \abs{(f, T_n)_{\omega}}^2 \nonumber \\
+&= \frac{2}{\pi} \sum\limits_{n = N+1}^{+ \infty} \abs{\frac{1}{n^2}(f, \Lagr T_n)_{\omega}}^2 \nonumber \\
+&= \frac{2}{\pi} \sum\limits_{n = N+1}^{+ \infty} \abs{-\frac{1}{n^2}(\Lagr f, T_n)_{\omega}}^2 \nonumber \\
+&= \frac{2}{\pi} \sum\limits_{n = N+1}^{+ \infty} \abs{\frac{1}{n^r}(\Lagr^{r/2} f, T_n)_{\omega}}^2 \ \ \ \text{(Assume $r$ is even)}\nonumber \\
+&\leq \frac{2}{\pi} \frac{1}{N^{2r}} \sum\limits_{n = N+1}^{+ \infty}  \abs{(\Lagr^{r/2} f, T_n)_{\omega}}^2 \nonumber \\
+&\leq \frac{1}{N^{2r}} \left[\frac{1}{\pi} \abs{(\Lagr^{r/2} f, T_n)_{\omega}}^2 + \sum\limits_{n=1}^{+ \infty} \frac{2}{\pi} \abs{(\Lagr^{r/2} f, T_n)_{\omega}}^2 \right] \nonumber \\
+&\leq \frac{1}{N^{2r}} \norm{\Lagr^{r/2} f}^2_{0, \omega	} \nonumber \\
+&\lesssim N^{-{2r}} \norm{f}^2_{r,\omega} \nonumber
+\end{align}
+Hence, $\norm{f - \pi_N f}_{0, \omega} \lesssim N^{-{r}} \norm{f}_{r,\omega}$.
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+\begin{enumerate}[label=Q\arabic	*.]
+\setlength{\itemsep}{0pt}
+\setcounter{enumi}{2}
+\item 
+\begin{enumerate}[label=(\alph*)]
+\setlength{\itemsep}{0pt}
+\setcounter{enumii}{1}
+\item $\forall p \in P_N$, the projection on Chebyshev Polynomial is $p(x) = \sum\limits_{n=0}^N \hat{p}_n T_n(x)$. \\
+The derivative is then $p^{(1)}(x) = \sum\limits_{n=0}^N \hat{p}^{(1)}_n T^{(1)}_n(x)$, where $\hat{p}^{(1)}_n = \frac{2}{\pi(1+\delta_{0n})} \int^{1}_{-1} p^{(1)}(x) T_n(x) \omega(x) \ dx$.\\
+The seminorm of $p(x)$ is defined as $\abs{p}^2_1 = \sum\limits_{n=0}^N \abs{\hat{p}^{(1)}_n}^2 \cdot \norm{T_n}^2_{L^2_{\omega}}$.\\
+From the derivative $p^{(1)}(x)$ and differential relation of $T^{(1)}_n(x)$ from Q2, we can see that 
+\begin{equation}
+\hat{p}^{(1)}_n = \frac{2}{\pi(1+\delta_{0n})} \int^{1}_{-1} \left(\sum^N_{j=0} \hat{p}_j\right) \left(2j \sum\limits^{j-1}_{\substack{i=0 \\ i + j \ \text{odd}}} \frac{1}{1+\delta_{i0}}T_i(x) \right) T_n(x) \omega(x) \ dx \nonumber
+\end{equation}
+As $\{T_i(x)\}_{i \in \N}$ are orthogonal in $L^2_{\omega} (-1,1)$, if $i = n$, then the integral will be nonzero, thus $j \geq n + 1$ and $j + n$ is odd. Thus
+\begin{align}
+\hat{p}^{(1)}_n &= \frac{2}{\pi(1+\delta_{0n})} \left(\sum^N_{\substack{j = n+1 \\ j + n \ \text{odd}}} \hat{p}^{(1)}_j \cdot 2j \cdot \frac{1}{1+\delta_{n0}} \cdot \norm{T_n}^2_{L^2_{\omega}}\right) \nonumber \\
+&= \frac{4}{\pi (1+\delta_{0n})^2} \left(\sum^N_{\substack{j = n+1 \\ j + n \ \text{odd}}} \hat{p}_j \cdot j \right) \cdot \norm{T_n}^2_{L^2_{\omega}} \nonumber
+\end{align}
+Thus we can see
+\begin{align}
+\abs{p}^2_1 &= \sum\limits_{n=0}^N \abs{\hat{p}^{(1)}_n}^2 \cdot \norm{T_n}^2_{L^2_{\omega}} \nonumber \\
+&= \sum\limits_{n=0}^N \left(\frac{4}{\pi (1+\delta_{0n})^2} \right)^2 \left(\sum^N_{\substack{j = n+1 \\ j + n \ \text{odd}}} \hat{p}_j \cdot j \right)^2 \cdot \norm{T_n}^6_{L^2_{\omega}} \ \ \text{by earlier calculation} \nonumber \\
+&= \sum\limits_{n=0}^N \left(\sum^N_{\substack{j = n+1 \\ j + n \ \text{odd}}} \hat{p}_j \cdot j \right)^2 \cdot \norm{T_n}^2_{L^2_{\omega}} \ \ \text{(as $\norm{T_n}^2_{L^2_{\omega}} = \frac{\pi}{2}(1+\delta_{0n})$)} \nonumber \\
+&\leq \sum\limits_{n=0}^N \left(\sum^N_{j = 0} \hat{p}_j \cdot j \right)^2 \cdot \norm{T_n}^2_{L^2_{\omega}} \nonumber \\
+&\leq \sum\limits_{n=0}^N \left(\sum^N_{j = 0} \hat{p}^2_j \right) \left(\sum^N_{j = 0} \cdot j \right) \cdot \norm{T_n}^2_{L^2_{\omega}} \ \ \text{by Cauchy-Schwarz} \nonumber \\
+&\leq N^4 \sum\limits_{n=0}^N \left(\sum^N_{j = 0} \hat{p}^2_j \right) \cdot \norm{T_n}^2_{L^2_{\omega}} \ \ \text{by Cauchy-Schwarz} \nonumber \\
+&\lesssim N^4 \norm{p}^2_{L^2_{\omega}} \nonumber
+\end{align}
+Hence, $\abs{p}_1 \lesssim N^2 \norm{p}_{L^2_{\omega}}$.\\
+Note that for $n \in \N$, 
+\begin{align}
+\abs{p}_n &= \abs{p^{(1)}}_n-1 = \abs{p^{(2)}}_n-2 = \cdots = \abs{p^{(n-1)}}_1 \lesssim N^2 \norm{p^{n-1}}_{L^2_{\omega}}  \nonumber \\
+\norm{p^{(n-1)}}_{L^2_{\omega}} &= \abs{p^{(n-2)}}_1 \lesssim N^2 \norm{p^{(n-2)}}_{L^2_{\omega}} \nonumber
+\end{align}
+Thus by these relations, we would have the error estimate
+\begin{equation}
+\norm{p}_{r, \omega} \lesssim N^{2r} \norm{p}_{L^2_{\omega}} = N^{2r} \norm{p}_{0,w\omega} \ \ \forall p \in P_N \nonumber
+\end{equation}
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+\begin{enumerate}[label=Q\arabic	*.]
+\setlength{\itemsep}{0pt}
+\setcounter{enumi}{2}
+\item 
+\begin{enumerate}[label=(\alph*)]
+\setlength{\itemsep}{0pt}
+\setcounter{enumii}{2}
+\item From Q2, we have that $T^{(1)}_{n} (x) = 2 n \sum\limits^{N-1}_{\substack{k = 0 \\ k + n \ \text{odd}}} \frac{1}{1 + \delta_{k0}} T_k(x)$.\\
+From part (a), we also have the expansion of $f$ as $f(x) = \sum\limits_{n = 0}^{+ \infty} \hat{f}_n T_n(x)$. Hence
+\begin{align}
+\partial_x f &= \sum\limits_{n=1}^{+ \infty} \hat{f}_n T^{(1)}_n(x) \nonumber \\	
+&= \sum\limits_{n=1}^{+ \infty} \hat{f}_n \cdot 2 n \sum\limits^{n-1}_{\substack{k = 0 \\ k + n \ \text{odd}}} \frac{1}{1 + \delta_{k0}} T_k(x) \nonumber \\
+&= \sum\limits_{k=0}^{+\infty} \frac{1}{1 + \delta_{k0}} \left(\sum\limits^{+\infty}_{\substack{n = k+1 \\ k + n \ \text{odd}}} 2n \cdot \hat{f}_n \right) T_k(x) \nonumber
+\end{align}
+Then 
+\begin{equation}
+\pi_N(\partial_x f) = \sum\limits_{k=0}^{N} \frac{1}{1 + \delta_{k0}} \left(\sum\limits^{+\infty}_{\substack{n = k+1 \\ k + n \ \text{odd}}} 2n \cdot \hat{f}_n \right) T_k(x) \nonumber
+\end{equation}
+\begin{align}
+\partial_x(\pi_Nf) &= \sum\limits_{n=1}^N \hat{f}_n T^{(1)}_n (x) \nonumber \\
+&= \sum\limits_{n=1}^N \hat{f}_n \cdot 2n \sum\limits^{n-1}_{\substack{k = 0 \\ k + n \ \text{odd}}} \frac{1}{1 + \delta_{k0}} T_k(x) \nonumber \\
+&= \sum\limits^{N-1}_{k=0} \frac{1}{1 + \delta_{k0}} \left(\sum\limits^{N}_{\substack{n = k+1 \\ k + n \ \text{odd}}} 2n \cdot \hat{f}_n \right) T_k(x) \nonumber
+\end{align}
+Thus we can see that
+\begin{align}
+\pi_N(\partial_x f) - \partial_x(\pi_Nf) &= \sum\limits_{k=0}^{N} \frac{1}{1 + \delta_{k0}} \left(\sum\limits^{+\infty}_{\substack{n = k+1 \\ k + n \ \text{odd}}} 2n \cdot \hat{f}_n \right) T_k(x) - \sum\limits^{N-1}_{k=0} \frac{1}{1 + \delta_{k0}} \left(\sum\limits^{N}_{\substack{n = k+1 \\ k + n \ \text{odd}}} 2n \cdot \hat{f}_n \right) T_k(x) \nonumber \\
+&= \sum\limits^{N}_{k=0} \frac{1}{1 + \delta_{k0}} \left(\sum\limits^{+ \infty}_{\substack{n = N+1 \\ k + n \ \text{odd}}} 2n \cdot \hat{f}_n \right) T_k(x) \nonumber
+\end{align}
+Note that
+\begin{align}
+\begin{cases}
+\sum\limits^{+ \infty}_{\substack{n = N+1 \\ k + n \ \text{odd}}} 2n \cdot \hat{f}_n = \sum\limits^{+ \infty}_{\substack{n = N+1 \\ N + n \ \text{odd}}} 2n \cdot \hat{f}_n = \hat{f}^{(1)}_N \ \ \text{if $N+n$ is even} \\
+\sum\limits^{+ \infty}_{\substack{n = N+1 \\ k + n \ \text{odd}}} 2n \cdot \hat{f}_n = \sum\limits^{+ \infty}_{\substack{n = N+2 \\ N + 1 + n \ \text{odd}}} 2n \cdot \hat{f}_n = \hat{f}^{(1)}_{N+1} \ \ \text{if $N+n$ is odd}
+\end{cases} \nonumber
+\end{align}
+Thus,
+\begin{align}
+\norm{\pi_N(\partial_x f) - \partial_x(\pi_Nf)}^2_{L^2_{\omega}} &= \sum\limits_{k=0}^N \left(\frac{1}{1+\delta_{k0}} \sum\limits^{+\infty}_{\substack{n = k+1 \\ k + n \ \text{odd}}} 2n \cdot \hat{f}_n \right)^2 \cdot \frac{\pi}{2}(1+\delta_{k0}) \nonumber \\
+&= \frac{\pi}{2} \sum\limits_{k=0}^N \frac{1}{1+\delta_{k0}} \left(\sum\limits^{+\infty}_{\substack{n = k+1 \\ k + n \ \text{odd}}} 2n \cdot \hat{f}_n \right)^2 \nonumber \\
+&= 
+\begin{cases}
+\frac{\pi}{2} \sum\limits_{k=0}^N \frac{1}{1 + \delta_{k0}} \left(\hat{f}^{(1)}_N \right) ^2 \ \ \text{if $k+n$ is even} \\
+\frac{\pi}{2} \sum\limits_{k=0}^N \frac{1}{1 + \delta_{k0}} \left(\hat{f}^{(1)}_{N+1} \right) ^2 \ \ \text{if $k+n$ is odd}
+\end{cases} \nonumber
+\end{align}
+To estimate the sum, note that
+\begin{align}
+\abs{\hat{f}^{(1)}_N}^2 &= \left[ \left(\frac{\pi}{2} (1+\delta_{N0}) \right)^{-1} \int_{-1}^1 \partial_x f \cdot T_N(x) \ dx \right]^2 \nonumber \\
+&= \frac{4}{\pi^2} \norm{(\partial_x f, T_N)}^2_{L^2_{\omega}} \nonumber \\
+&= \frac{4}{\pi^2} \norm{-\frac{1}{N^2} (\partial_x f, \Lagr T_N)}^2_{L^2_{\omega}} \ \ \ \text{(By Sturm-Liouville Operator)} \nonumber \\
+&\lesssim N^{-4} \norm{(\Lagr(\partial_x f), T_n)}^2_{L^2_{\omega}} \nonumber \\
+&\lesssim N^{-4(r-1)/2} \norm{(\Lagr^{(r-1)/2}(\partial_x f), T_n)}^2_{L^2_{\omega}} \nonumber \\
+&\lesssim N^{-4(r-1)/2} \norm{\Lagr^{(r-1)/2}(\partial_x f)}^2_{L^2_{\omega}} \norm{T_n}^2_{L^2_{\omega}} \ \ \ \text{(By Cauchy-Schwarz Inequality)} \nonumber \\
+&\lesssim N^{-4(r-1)/2} \norm{\Lagr^{(r-1)/2}(\partial_x f)}^2_{L^2_{\omega}} \left(\frac{\pi}{2} \right)^2 \nonumber \\
+&\lesssim N^{-2r+2} \norm{f}^2_{r, \omega} \nonumber
+\end{align}
+Similarly, 
+\begin{equation}
+\abs{\hat{f}^{(1)}_{N+1}}^2 \lesssim N^{-2r+2} \norm{f}^2_{r, \omega} \nonumber
+\end{equation}
+Thus,
+\begin{align}
+\norm{\pi_N(\partial_x f) - \partial_x(\pi_Nf)}^2_{L^2_{\omega}} &\lesssim \frac{\pi}{2} \left( \sum\limits_{k=0}^N \frac{1}{1+ \delta_{k0}} \right) N^{-2r+2} \norm{f}^2_{r, \omega} \nonumber \\
+&\lesssim N^{3-2r} \norm{f}^2_{r, \omega} \nonumber
+\end{align}
+Therefore,
+\begin{equation}
+\norm{\pi_N(\partial_x f) - \partial_x(\pi_Nf)}_{L^2_{\omega}} \lesssim N^{3/2-r} \norm{f}_{r, \omega} \nonumber
+\end{equation}
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+\begin{enumerate}[label=Q\arabic	*.]
+\setlength{\itemsep}{0pt}
+\setcounter{enumi}{2}
+\item 
+\begin{enumerate}[label=(\alph*)]
+\setlength{\itemsep}{0pt}
+\setcounter{enumii}{3}
+\item Note that
+\begin{align}
+\norm{f - \pi_N f}^2_{1, \omega} &= \norm{f - \pi_N f}^2_{L^2_{\omega}} + \abs{f - \pi_N f}^2_1 \nonumber \\
+&= \norm{f - \pi_N f}^2_{L^2_{\omega}} + \norm{\partial_x f - \partial_x (\pi_N f)}^2_{L^2_{\omega}} \nonumber \\
+&\leq \norm{f - \pi_N f}^2_{L^2_{\omega}} + \norm{\partial_x f - \pi_N (\partial_x f)}^2_{L^2_{\omega}} +  \norm{\pi_N (\partial_x f) - \partial_x (\pi_N f)}^2_{L^2_{\omega}} \nonumber \\
+&\lesssim N^{-2r} \norm{f}^2_{r, \omega} + N^{-2(r-1)}\norm{\partial_x f}^2_{(r-1), \omega} + N^{3-2r} \norm{f}^2_{r, \omega} \nonumber \\
+&\lesssim N^{3-2r} \norm{f}^2_{r, \omega} \nonumber
+\end{align}
+Hence,
+\begin{equation}
+\norm{f - \pi_N f}_{1, \omega} \lesssim N^{3/2-r} \norm{f}_{r, \omega} \nonumber
+\end{equation}
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+\begin{enumerate}[label=Q\arabic	*.]
+\setlength{\itemsep}{0pt}
+\setcounter{enumi}{3}
+\item Note that
+\begin{align}
+p^{*}(-1) &= \int_{-1}^{-1} \pi_N u' - \frac{1}{2} p(1)\ dy = 0 \nonumber \\
+p^{*}(1) &= \int_{1}^{-1} \pi_N u' - \frac{1}{2} p(1) \ dy \nonumber \\
+&= \int_{-1}^{1} \pi_N u' \ dy = 0 \nonumber 
+\end{align}
+Hence, $p^{*}(-1) = p^{*}(1) = 0$.\\
+Note that
+\begin{align}
+(u' - p^{*})' &= u' - \pi_N u' - \frac{1}{2} p(1) \nonumber \\
+&= u' - \pi_N u' - \frac{1}{2} \int_{-1}^{1} \pi_N u' - u' \ dy \nonumber
+\end{align}
+As $u(-1) = u(1) = 0$, then $\int_{-1}^{1} u' \ dy = 0$. Thus,
+\begin{align}
+\abs{u-p^{*}}_{1, \omega} &\lesssim \norm{u' - \pi_N u'}_{0, \omega} \nonumber \\
+&\lesssim N^{-r} \norm{u'}_{r, \omega} \nonumber
+\end{align}
+From Q3(a) result, where $\norm{f - \pi_N f}_{0, \omega} \lesssim N^{-r} \norm{f}_{r,\omega}$, $r$ is even, we can then show that
+\begin{align}
+\abs{u-p^{*}}_{1, \omega} &\lesssim N^{1-r} \norm{u}_{r, \omega} \nonumber
+\end{align}
+where $r$ is odd.
+\end{enumerate}
+
+
+\end{document}
